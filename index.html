@@ -5,7 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Trivia Game</title>
+    <link rel="stylesheet" type="text/css"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -14,7 +17,21 @@
 </head>
 <body>
 
-     var directionsText = document.getElementById('directions-text');
+        <div class="jumbotron jumbotron-fluid">
+                <div class="container">
+                  <h1 class="display-4">Disney Lyrics Trivia!</h1>
+                  <p class="lead"><span id="directions-text">Press the START button to begin the trivia game!</span></p>
+                  <button type="button" class="btn btn-primary" id="start-btn">Start</button>
+                </div>
+              </div>
+
+    <!-- <div>
+    <h1>Disney Lyrics Trivia Game</h1>
+
+    <p><span id="directions-text">Press the START button to begin the trivia game!</span></p>
+
+    <button type="button" class="btn btn-primary">Start</button>
+    </div> -->
     
 </body>
 <script type="text/javascript" src="assets/javascript/app.js"></script>
