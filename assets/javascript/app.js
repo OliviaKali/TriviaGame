@@ -1,6 +1,28 @@
 var directionsText = document.getElementById('directions-text');
 
 
+//Disney Lyric Trivia Game
+//Five questions- How well do you know song lyrics from your favorite Disney movies?
+    //Mulan-Reflection
+    //A Little Mermaid- Part of your World
+    //Aladdin- A Whole New World
+    //Hercules- Go the Distance
+    //
+//Write instructions in html
+    //"Press start button to start the disney trivia game"
+    //Create button in html (Bootstrap)
+    //Make instructions disappear once the game starts (display: none?)
+//Create variable with array of questions 
+//Array of correct answers
+//For loop
+//Create timer that starts when the start button is pressed
+    //Each question will have a reset time counting down
+    //Page should automatically move to the next page (displaying correct answer 
+        //even if any answer wasn't selected)
+    //SetTimeout method for correct answer page for 5 seconds before next question appears
+//Repeat steps until each question is shown
+
+
 
 // Pick a theme for the trivia game
 //Trivia based on a specific TV show?
