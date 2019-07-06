@@ -1,14 +1,3 @@
-
-//     var triviaStats = {
-//         correct: 0,
-//         incorrect: 0,
-//         unanswered: 0,
-//         timer: 15, //(timer for each question: 15 seconds)
-//     }
-
-// var directionsText = document.getElementById('directions-text');
-
-
 //Disney Lyric Trivia Game
 //Five questions- How well do you know song lyrics from your favorite Disney movies?
 //Mulan-Reflection
@@ -32,6 +21,10 @@
 //Button: Play again? (Without reloading the page)
 
 $(document).ready(function () {
+var directionsText = document.getElementById('directions-text');
+$("#directions-text").html("Press the START button to begin the trivia game!")
+
+
     var questions = [
         {
             question: "What is the next lyric in the Mulan song, Reflection: Look at me/ I will never pass for a perfect bride/ Or a perfect daughter",
@@ -45,9 +38,36 @@ $(document).ready(function () {
         {
             question: "What is the next lyric in song, Part of your World, from The Little Mermaid: What would I give if I could live/____",
             choices: [
-                { choice: "Out of these waters?" },
+                { choice: "Out of these waters" },
                 { choice: "Out of the oceans" },
                 { choice: "Out of the sea" }
+            ],
+            correct: 0
+        },
+        {
+            question: "What is the next line in A Whole New World from Aladdin? 'I'm in a whole new world with you./ Unbelievable ___'",
+            choices: [
+                { choice: "Unbelievable beauty" },
+                { choice: "Unbelievable sights" },
+                { choice: "Unbelievable views" }
+            ],
+            correct: 1
+        },
+        {
+            question: "What is the first line in Hercules's I Can Go the Distance",
+            choices: [
+                { choice: "I have often wished" },
+                { choice: "I have often thought" },
+                { choice: "I have often dreamed" }
+            ],
+            correct: 2
+        },   
+        {
+            question: "What phrase is repeated constantly in the song, Hakuna Matata, from the Lion King?",
+            choices: [
+                { choice: "It means no worries for the rest of your days", },
+                { choice: "It means no worries for the rest of your life", },
+                { choice: "It means you don't need to worry",}
             ],
             correct: 0
         }
@@ -60,7 +80,7 @@ setQ(0)
         for (var i = 0; i < questions[questionNum].choices.length; i++){
         questionHTML += "<button class='choices' id='c"+i+"'>" + questions[questionNum].choices[i].choice + "</button>"
         }
-    var score = 0;
+ 
     $(".questions").html(questionHTML)
 
     $(".choices").on("click", function(){
@@ -91,88 +111,36 @@ var currentQ = 0;
             currentQ++;
             setQ(currentQ)
         }
-        autoChangeQ = setTimeout (autoChangeQues,15000);
-        showProgress = setTimeout (showTimeChange,1000);
-        currentSec = 0;
+        // autoChangeQ = setTimeout (autoChangeQues,15000);
+        // showProgress = setTimeout (showTimeChange,1000);
+        // currentSec = 0;
 
     }
 
 
 
-var currentSec = 0;
+// var currentSec = 0;
 
-function showTimeChange () {
-    currentSec+=1;
-    $("#time").html(currentSec);
-}
+// function showTimeChange () {
+//     currentSec+=1;
+//     $("#time").html(currentSec);
+// }
 
-function autoChangeQues() {
-    clearTimeout(autoChangeQ); 
-    clearTimeout(showProgress);    
-    answer("");
-}
+// function autoChangeQues() {
+//     clearTimeout(autoChangeQ); 
+//     clearTimeout(showProgress);    
+//     answer("");
+// }
 
-var autoChangeQ; 
-var showProgress;
+// var autoChangeQ; 
+// var showProgress;
 
-    
-
-
-    // for (var i = 0; i < questions.length; i++){
-
-    // }
 });
 
 
-
-// Pick a theme for the trivia game
-//Trivia based on a specific TV show?
-//The Office Trivia?
-// Make up 5 multiple choice questions
-// Write instructions in html
-// Make timer that starts once the player clicks start button
-// Make the page display the next question once the timer is up 
-//make the page display the next page, once play has submitted their answer
-//regardless of it the player submitted an answer 
-//(Next page is shows correct answer to the question)
-
-// Add click function in js
-
-
-// var questions = [
-//     {
-//         question1: "What is the next lyric in the 'Mulan' song Reflection: Look at me/ I will never pass for a perfect bride/ Or a perfect daughter" 
-//         choiceA: "Can it be I'm not meant to play this role",
-//         choiceB: "Can it be I'm not meant to play this part",
-//         choiceC: "Can it be I'm not meant to be a bride",
-//         correct: "B"
-//     },
-    // {
-    //     question2: "What is the next lyric in song, Part of your World, from The Little Mermaid: What would I give if I could live/____",
-    //     choiceA: "Out of these waters?",
-    //     choiceB: "Out of the oceans",
-    //     choiceC: "Out of the sea",
-    //     correct: "A"
-    // },
-    // {
-    //     question3: "What is the next line in A Whole New World from Aladdin? 'I'm in a whole new world with you./ Unbelievable ___'",
-    //     choiceA: "Unbelievable beauty",
-    //     choiceB: "Unbelievable sights",
-    //     choiceC: "Unbelievable views",
-    //     correct: "B"
-    // },
-    // {
-    //     question4: "What is the first line in Hercules's I Can Go the Distance",
-    //     choiceA: "I have often wished",
-    //     choiceB: "I have often thought",
-    //     choiceC: "I have often dreamed",
-    //     correct: "C"
-    // },
-    // {
-    //     question5: "What phrase is repeated constantly in the song, Hakuna Matata, from the Lion King?",
-    //     choiceA: "It means no worries for the rest of your days",
-    //     choiceB: "It means no worries for the rest of your life",
-    //     choiceC: "It means you don't need to worry",
-    //     correct: "A"
-    // }
-// ];
+//     var triviaStats = {
+//         correct: 0,
+//         incorrect: 0,
+//         unanswered: 0,
+//         timer: 15, //(timer for each question: 15 seconds)
+//     }
