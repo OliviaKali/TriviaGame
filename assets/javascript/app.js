@@ -28,6 +28,7 @@ $("#start-btn").click(function() {
 var correctAnswers = 0;
 var wrongAnswers = 0;
 var unanswered = 0;
+
 // var questionTime = 15;
 // var count = 0;
 
@@ -95,9 +96,9 @@ var unanswered = 0;
         {
             question: "What phrase is repeated constantly in the song, Hakuna Matata, from the Lion King?",
             choices: [
-                { choice: "It means no worries for the rest of your days", },
-                { choice: "It means no worries for the rest of your life", },
-                { choice: "It means you don't need to worry",}
+                { choice: "It means no worries for the rest of your days" },
+                { choice: "It means no worries for the rest of your life" },
+                { choice: "It means you don't need to worry" }
             ],
             correct: 0
         }
@@ -125,15 +126,18 @@ var currentQ = 0;
         var correctChoiceIndex = questions[currentQ].correct
         var correctChoice = questions[currentQ].choices[correctChoiceIndex].choice
         if (userChoice === correctChoice) {
+            setTimeout(changeQ, 1000 * 5);
             $(".answers").html("Good job! The correct answer is: " + userChoice)
             correctAnswers++
         }
         else {
+            setTimeout(changeQ, 1000 * 5); 
             $(".answers").html("Nice try! The correct answer is: " + correctChoice)
             wrongAnswers++
         }
         // setTimeout(fiveSeconds, 1000 * 5);
-        changeQ();
+        // changeQ();
+        //How do I make the multiple choice only be able to click one choice?
     }
 
     function changeQ(){
@@ -144,6 +148,7 @@ var currentQ = 0;
             $("#correct-text").html("Correct: " + correctAnswers)
             $("#wrong-text").html("Wrong: " + wrongAnswers)
             $("#unanswered-text").html("Unanswered: " + unanswered)
+            $("#playAgain-btn").html()
         }
         else {
             currentQ++;
@@ -154,6 +159,10 @@ var currentQ = 0;
         // currentSec = 0;
 
     }
+
+    // function fiveSeconds() {
+    //     $(".answers").append("Good job! The correct answer is: " + userChoice);
+    // }
 
 // var currentSec = 0;
 

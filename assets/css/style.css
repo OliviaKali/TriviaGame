@@ -1,0 +1,13 @@
+body {
+    margin: 30px;
+    background: url(../images/full-bloom.png)
+}
+
+h1 {
+    text-align: center;
+    font-size: 40px;
+}
+
+.questions {
+    font-size: 30px;
+}
