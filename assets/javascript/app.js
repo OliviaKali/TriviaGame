@@ -1,10 +1,4 @@
-//Disney Lyric Trivia Game
-//Five questions- How well do you know song lyrics from your favorite Disney movies?
-//Mulan-Reflection
-//A Little Mermaid- Part of your World
-//Aladdin- A Whole New World
-//Hercules- Go the Distance
-//
+
 //Write instructions in html
 //"Press start button to start the disney trivia game"
 //Create button in html (Bootstrap)
@@ -23,6 +17,42 @@
 $(document).ready(function () {
 var directionsText = document.getElementById('directions-text');
 $("#directions-text").html("Press the START button to begin the trivia game!")
+$("#start-btn").html("Start")
+
+// start.addEventListener("click",start);
+
+$("#start-btn").click(function() {
+    alert("It worked")
+});
+
+var correctAnswers = 0;
+var wrongAnswers = 0;
+var unanswered = 0;
+// var questionTime = 15;
+// var count = 0;
+
+// function counter() {
+//     if (count <= questionTime) {
+//         counter.
+//     }
+// }
+
+// var counter = 0;
+
+// function setUp () {
+//     $("#timer").html(counter);
+
+// function timeIt () {
+//     counter++;
+//     timer.html(counter);
+// }
+
+//     setInterval(timeIt, 1000);
+// }
+
+// setUp(counter);
+// timeIt(counter);
+
 
 
     var questions = [
@@ -72,11 +102,11 @@ $("#directions-text").html("Press the START button to begin the trivia game!")
             correct: 0
         }
     ];
-setQ(0)
+setQuestion(0)
 
-    function setQ (questionNum) {
-    var q1 = questions[questionNum].question
-    var questionHTML = "<p>" + q1 + "</p>"
+    function setQuestion (questionNum) {
+    var ques = questions[questionNum].question
+    var questionHTML = "<p>" + ques + "</p>"
         for (var i = 0; i < questions[questionNum].choices.length; i++){
         questionHTML += "<button class='choices' id='c"+i+"'>" + questions[questionNum].choices[i].choice + "</button>"
         }
@@ -95,29 +125,35 @@ var currentQ = 0;
         var correctChoiceIndex = questions[currentQ].correct
         var correctChoice = questions[currentQ].choices[correctChoiceIndex].choice
         if (userChoice === correctChoice) {
-            $(".answers").html("Correct")
+            $(".answers").html("Good job! The correct answer is: " + userChoice)
+            correctAnswers++
         }
         else {
-            $(".answers").html("Wrong")
+            $(".answers").html("Nice try! The correct answer is: " + correctChoice)
+            wrongAnswers++
         }
+        // setTimeout(fiveSeconds, 1000 * 5);
         changeQ();
     }
 
     function changeQ(){
         if (currentQ === questions.length-1) {
-            alert ("finished")
+            $("#playAgain").html("Thanks for playing Disney Lyric Trivia")
+            $(".questions").hide()
+            $(".answers").hide()
+            $("#correct-text").html("Correct: " + correctAnswers)
+            $("#wrong-text").html("Wrong: " + wrongAnswers)
+            $("#unanswered-text").html("Unanswered: " + unanswered)
         }
         else {
             currentQ++;
-            setQ(currentQ)
+            setQuestion(currentQ)
         }
         // autoChangeQ = setTimeout (autoChangeQues,15000);
         // showProgress = setTimeout (showTimeChange,1000);
         // currentSec = 0;
 
     }
-
-
 
 // var currentSec = 0;
 
@@ -138,9 +174,5 @@ var currentQ = 0;
 });
 
 
-//     var triviaStats = {
-//         correct: 0,
-//         incorrect: 0,
-//         unanswered: 0,
 //         timer: 15, //(timer for each question: 15 seconds)
 //     }
