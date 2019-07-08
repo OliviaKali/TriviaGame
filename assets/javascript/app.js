@@ -15,44 +15,49 @@
 //Button: Play again? (Without reloading the page)
 
 $(document).ready(function () {
-var directionsText = document.getElementById('directions-text');
-$("#directions-text").html("Press the START button to begin the trivia game!")
-$("#start-btn").html("Start")
+    var directionsText = document.getElementById('directions-text');
+    $("#directions-text").html("Press the START button to begin the trivia game!")
+    $("#start-btn").html("Start")
 
-// start.addEventListener("click",start);
+    $(".questions").hide();
 
-$("#start-btn").click(function() {
-    alert("It worked")
-});
+    // start.addEventListener("click",start);
 
-var correctAnswers = 0;
-var wrongAnswers = 0;
-var unanswered = 0;
+    $("#start-btn").click(function () {
+        $(".questions").show();
 
-// var questionTime = 15;
-// var count = 0;
+    });
 
-// function counter() {
-//     if (count <= questionTime) {
-//         counter.
-//     }
-// }
+    var correctAnswers = 0;
+    var wrongAnswers = 0;
+    var unanswered = 0;
 
-// var counter = 0;
+    var timerID;
 
-// function setUp () {
-//     $("#timer").html(counter);
+    // var questionTime = 15;
+    // var count = 0;
 
-// function timeIt () {
-//     counter++;
-//     timer.html(counter);
-// }
+    // function counter() {
+    //     if (count <= questionTime) {
+    //         counter.
+    //     }
+    // }
 
-//     setInterval(timeIt, 1000);
-// }
+    // var counter = 0;
 
-// setUp(counter);
-// timeIt(counter);
+    // function setUp () {
+    //     $("#timer").html(counter);
+
+    // function timeIt () {
+    //     counter++;
+    //     timer.html(counter);
+    // }
+
+    //     setInterval(timeIt, 1000);
+    // }
+
+    // setUp(counter);
+    // timeIt(counter);
 
 
 
@@ -92,7 +97,7 @@ var unanswered = 0;
                 { choice: "I have often dreamed" }
             ],
             correct: 2
-        },   
+        },
         {
             question: "What phrase is repeated constantly in the song, Hakuna Matata, from the Lion King?",
             choices: [
@@ -103,52 +108,74 @@ var unanswered = 0;
             correct: 0
         }
     ];
-setQuestion(0)
+    setQuestion(0)
 
-    function setQuestion (questionNum) {
-    var ques = questions[questionNum].question
-    var questionHTML = "<p>" + ques + "</p>"
-        for (var i = 0; i < questions[questionNum].choices.length; i++){
-        questionHTML += "<button class='choices' id='c"+i+"'>" + questions[questionNum].choices[i].choice + "</button>"
+    function setQuestion(questionNum) {
+
+
+        var ques = questions[questionNum].question
+
+        var questionHTML = "<p>" + ques + "</p>"
+
+        for (var i = 0; i < questions[questionNum].choices.length; i++) {
+            questionHTML += "<button class='choices' id='c" + i + "'>" + questions[questionNum].choices[i].choice + "</button>"
         }
- 
-    $(".questions").html(questionHTML)
 
-    $(".choices").on("click", function(){
-        answer(this.innerText);
-    });
-}
 
-var currentQ = 0;
+        $(".questions").html(questionHTML); 
 
+
+        $(".choices").on("click", function () {
+            answer(this.innerText);
+        });
+    }
+
+    var currentQ = 0;
+
+    function timer(){
+        clearTimeout(timerID);
+        timerID = setTimeout(changeQ, 1000 * 2);
+
+
+        if(timerID === ""){
+            clearTimeout(timerID);            
+        } else {
+            console.log(timerID)
+        }
+    }
 
     function answer(userChoice) {
+
         var correctChoiceIndex = questions[currentQ].correct
         var correctChoice = questions[currentQ].choices[correctChoiceIndex].choice
+
         if (userChoice === correctChoice) {
-            setTimeout(changeQ, 1000 * 5);
+
+            timer();
             $(".answers").html("Good job! The correct answer is: " + userChoice)
             correctAnswers++
+            
         }
+
         else {
-            setTimeout(changeQ, 1000 * 5); 
+            timer();
             $(".answers").html("Nice try! The correct answer is: " + correctChoice)
             wrongAnswers++
         }
-        // setTimeout(fiveSeconds, 1000 * 5);
         // changeQ();
         //How do I make the multiple choice only be able to click one choice?
     }
 
-    function changeQ(){
-        if (currentQ === questions.length-1) {
+    function changeQ() {
+        // clearTimeout(timerID);
+        if (currentQ === questions.length - 1) {
             $("#playAgain").html("Thanks for playing Disney Lyric Trivia")
             $(".questions").hide()
             $(".answers").hide()
             $("#correct-text").html("Correct: " + correctAnswers)
             $("#wrong-text").html("Wrong: " + wrongAnswers)
             $("#unanswered-text").html("Unanswered: " + unanswered)
-            $("#playAgain-btn").html()
+            // $("#playAgain-btn").html()
         }
         else {
             currentQ++;
@@ -164,24 +191,22 @@ var currentQ = 0;
     //     $(".answers").append("Good job! The correct answer is: " + userChoice);
     // }
 
-// var currentSec = 0;
+    // var currentSec = 0;
 
-// function showTimeChange () {
-//     currentSec+=1;
-//     $("#time").html(currentSec);
-// }
+    // function showTimeChange () {
+    //     currentSec+=1;
+    //     $("#time").html(currentSec);
+    // }
 
-// function autoChangeQues() {
-//     clearTimeout(autoChangeQ); 
-//     clearTimeout(showProgress);    
-//     answer("");
-// }
+    // function autoChangeQues() {
+    //     clearTimeout(autoChangeQ); 
+    //     clearTimeout(showProgress);    
+    //     answer("");
+    // }
 
-// var autoChangeQ; 
-// var showProgress;
+    // var autoChangeQ; 
+    // var showProgress;
 
 });
 
-
 //         timer: 15, //(timer for each question: 15 seconds)
-//     }
