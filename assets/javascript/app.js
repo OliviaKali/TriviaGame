@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var counter = 10;
+    var counter = 40;
     var timer;
   
     var currentQ = 0;
@@ -12,6 +12,7 @@ $(document).ready(function() {
     $("#directions-text").html("Press the START button to begin the trivia game!");
   
     $("#reset-btn").hide();
+    $("#finished-btn").hide();
     
   
     $("#start-btn").click(function() {
@@ -20,6 +21,7 @@ $(document).ready(function() {
       console.log("clicked");
       setQuestion();
       $("#time").html("<h4>" + "Time-left: " + counter + "</h4>");
+      $("#finished-btn").show();
   
       timer = setInterval(function() {
         counter -= 1;
@@ -32,37 +34,13 @@ $(document).ready(function() {
           $(".answers").hide();
           $("#time").hide();
           $("#playAgain").text(
-            "Thanks for playing Disney Lyric Trivia " + "<br>" +
-            "Correct: " + correctAnswers + "<br>" + "Wrong: " + wrongAnswers);
+            "Thanks for playing Disney Lyric Trivia");
           $("#reset-btn").show();
+          $("#finished-btn").hide();
+          finishQuiz();
           // $("#correct-text").text("Correct: " + correctAnswers);
-  
-          function finishQuiz() {
-              for (var i = 0; i < questions.length; i++) {
-                  // loop through array to check all answers at once
-                  if (questions[i].userChoice === questions[i].correct) {
-                      correctAnswers++
-                  } else {
-                      wrongAnswers++
-                  }
-              }
-              // write html to page
-              console.log(correctAnswers)
-              console.log(wrongAnswers)
-              // $("#correct-text").html("Correct: " + correctAnswers)
-              // $("#wrong-text").html("Wrong: " + wrongAnswers)
-              }
         }
-  
-      
-      // finishQuiz();
-      // console.log(correctAnswers)
-      // console.log(wrongAnswers)
-  
-        //   if (counter === 0) {
-        //     //finish quiz
-        //     clearInterval(timer);
-        //   }
+
       }, 1000);
   
       function stop() {
@@ -150,15 +128,28 @@ $(document).ready(function() {
         var answer = $(this).val();
         questions[questionIndex].userChoice = answer;
         console.log(questions);
-  
-  
       });
-    
-  
+
       
     }
   
+    function finishQuiz() {
+        for (var i = 0; i < questions.length; i++) {
+            // loop through array to check all answers at once
+            if (questions[i].userChoice === questions[i].correct) {
+                correctAnswers++
+            } else {
+                wrongAnswers++
+            }
+        }
+        // write html to page
+
+        console.log(correctAnswers)
+        console.log(wrongAnswers)
+        $("#correct-text").text("Correct: " + correctAnswers)
+        $("#wrong-text").text("Wrong: " + wrongAnswers)
+        }
   
-  
+        $("#quiz")
   });
   
