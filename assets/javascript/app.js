@@ -1,147 +1,164 @@
-$(document).ready(function () {
-    var directionsText = document.getElementById('directions-text');
-    $("#directions-text").html("Press the START button to begin the trivia game!")
-    $("#start-btn").html("Start")
-    $(".questions").hide();
-    $("#reset-btn").hide();
-
-    $("#start-btn").click(function () {
-        $(".questions").show();
-        $("#directions-text").hide();
-        $("#start-btn").hide();
-        // setInterval(myTimer, 15 * 1000)
-
-    });
-
-    $("#reset").click(function () {
-        location.reload();
-    });
-
+$(document).ready(function() {
+    var counter = 10;
+    var timer;
+  
+    var currentQ = 0;
+  
     var correctAnswers = 0;
     var wrongAnswers = 0;
-    // var unanswered = questions.length - (correctAnswers + wrongAnswers);
-
-    var questions = [
-        {
-            question: "What is the next lyric in the Mulan song, Reflection: Look at me/ I will never pass for a perfect bride/ Or a perfect daughter",
-            choices: [
-                { choice: "Can it be I'm not meant to play this role" },
-                { choice: "Can it be I'm not meant to play this part" },
-                { choice: "Can it be I'm not meant to be a bride" }
-            ],
-            correct: 1
-        },
-        {
-            question: "What is the next lyric in song, Part of your World, from The Little Mermaid: What would I give if I could live/____",
-            choices: [
-                { choice: "Out of these waters" },
-                { choice: "Out of the oceans" },
-                { choice: "Out of the sea" }
-            ],
-            correct: 0
-        },
-        {
-            question: "What is the next line in A Whole New World from Aladdin? 'I'm in a whole new world with you./ Unbelievable ___'",
-            choices: [
-                { choice: "Unbelievable beauty" },
-                { choice: "Unbelievable sights" },
-                { choice: "Unbelievable views" }
-            ],
-            correct: 1
-        },
-        {
-            question: "What is the first line in Hercules's I Can Go the Distance",
-            choices: [
-                { choice: "I have often wished" },
-                { choice: "I have often thought" },
-                { choice: "I have often dreamed" }
-            ],
-            correct: 2
-        },
-        {
-            question: "What phrase is repeated constantly in the song, Hakuna Matata, from the Lion King?",
-            choices: [
-                { choice: "It means no worries for the rest of your days", },
-                { choice: "It means no worries for the rest of your life", },
-                { choice: "It means you don't need to worry", }
-            ],
-            correct: 0
-        }
-    ];
-    setQuestion(0)
-
-    function setQuestion(questionNum) {
-        timer();
-        var ques = questions[questionNum].question
-        var questionHTML = "<p>" + ques + "</p>"
-        for (var i = 0; i < questions[questionNum].choices.length; i++) {
-            questionHTML += "<button class='choices' id='c" + i + "'>" + questions[questionNum].choices[i].choice + "</button>"
-        }
-
-        $(".questions").html(questionHTML)
-
-        $(".choices").on("click", function () {
-            answer(this.innerText);
-        });
-    }
-
-    var currentQ = 0;
-    var timerID;
-
-    function timer() {
-        clearTimeout(timerID);
-        timerID = setTimeout(changeQ, 1000 * 10);
-        if (timerID === "") {
-            clearTimeout(timerID);
-        }
-        //else {
-        //     console.log(timerID)
-        // }
-    }
-
-    function answer(userChoice) {
-        var correctChoiceIndex = questions[currentQ].correct
-        var correctChoice = questions[currentQ].choices[correctChoiceIndex].choice
-        if (userChoice === correctChoice) {
-            $(".answers").html("Good job! The correct answer is: " + userChoice)
-            correctAnswers++;
-            // timer();
-        }
-        // if else (userChoice === "") {
-        //if timer goes down to zero, change question
-        //unanswered++;
-        //     $(".answers").html("Nice try! The correct answer is: " + correctChoice)
-        // }
-        else {
-            $(".answers").html("Nice try! The correct answer is: " + correctChoice)
-            wrongAnswers++;
-            // timer();
-        }
-        // setTimeout(fiveSeconds, 1000 * 5);
-        // changeQ();
-    }
-
-
+    var unanswer = 0;
+  
+    var directionsText = document.getElementById("directions-text");
+    $("#directions-text").html("Press the START button to begin the trivia game!");
+  
+    $("#reset-btn").hide();
     
-
-    function changeQ() {
-        if (currentQ === questions.length - 1) {
-            $("#playAgain").html("Thanks for playing Disney Lyric Trivia" + "<br>" +
-                "Correct: " + correctAnswers + "<br>" + "Wrong: " + wrongAnswers +
-                "<br>" + "Unanswered: " + unanswered)
-            $(".questions").hide()
-            $(".answers").hide()
-            $("#reset-btn").show();
-            // $("#correct-text").html("Correct: " + correctAnswers)
-            // $("#wrong-text").html("Wrong: " + wrongAnswers)
-            // $("#unanswered-text").html("Unanswered: " + unanswered)
+  
+    $("#start-btn").click(function() {
+      $("#directions-text").hide();
+      $("#start-btn").hide();
+      console.log("clicked");
+      setQuestion();
+      $("#time").html("<h4>" + "Time-left: " + counter + "</h4>");
+  
+      timer = setInterval(function() {
+        counter -= 1;
+        console.log(counter);
+        $("#time").html("<h4>" + "Time-left: " + counter + "</h4>");
+  
+        if (counter === 0) {
+          stop();
+          $(".questions").hide();
+          $(".answers").hide();
+          $("#time").hide();
+          $("#playAgain").text(
+            "Thanks for playing Disney Lyric Trivia " + "<br>" +
+            "Correct: " + correctAnswers + "<br>" + "Wrong: " + wrongAnswers);
+          $("#reset-btn").show();
+          // $("#correct-text").text("Correct: " + correctAnswers);
+  
+          function finishQuiz() {
+              for (var i = 0; i < questions.length; i++) {
+                  // loop through array to check all answers at once
+                  if (questions[i].userChoice === questions[i].correct) {
+                      correctAnswers++
+                  } else {
+                      wrongAnswers++
+                  }
+              }
+              // write html to page
+              console.log(correctAnswers)
+              console.log(wrongAnswers)
+              // $("#correct-text").html("Correct: " + correctAnswers)
+              // $("#wrong-text").html("Wrong: " + wrongAnswers)
+              }
         }
-        else {
-            currentQ++;
-            setQuestion(currentQ)
+  
+      
+      // finishQuiz();
+      // console.log(correctAnswers)
+      // console.log(wrongAnswers)
+  
+        //   if (counter === 0) {
+        //     //finish quiz
+        //     clearInterval(timer);
+        //   }
+      }, 1000);
+  
+      function stop() {
+        //  Clears our intervalId
+        //  We just pass the name of the interval
+        //  to the clearInterval function.
+        clearInterval(timer);
+      }
+    });
+  
+    var questions = [
+      {
+        question:
+          "What is the next lyric in the Mulan song, Reflection: Look at me/ I will never pass for a perfect bride/ Or a perfect daughter",
+        choices: [
+          "Can it be I'm not meant to play this role",
+          "Can it be I'm not meant to play this part",
+          "Can it be I'm not meant to be a bride"
+        ],
+        correct: "Can it be I'm not meant to play this part",
+        userChoice: ""
+      },
+      {
+        question:
+          "What is the next lyric in song, Part of your World, from The Little Mermaid: What would I give if I could live/____",
+        choices: ["Out of these waters", "Out of the oceans", "Out of the sea"],
+        correct: "Out of these waters",
+        userChoice: ""
+      },
+      {
+        question:
+          "What is the next line in A Whole New World from Aladdin? 'I'm in a whole new world with you./ Unbelievable ___'",
+        choices: [
+          "Unbelievable beauty",
+          "Unbelievable sights",
+          "Unbelievable views"
+        ],
+        correct: "Unbelievable sights",
+        userChoice: ""
+      },
+      {
+        question: "What is the first line in Hercules's I Can Go the Distance",
+        choices: [
+          "I have often wished",
+          "I have often thought",
+          "I have often dreamed"
+        ],
+        correct: "I have often dreamed",
+        userChoice: ""
+      },
+      {
+        question:
+          "What phrase is repeated constantly in the song, Hakuna Matata, from the Lion King?",
+        choices: [
+          "It means no worries for the rest of your days",
+          "It means no worries for the rest of your life",
+          "It means you don't need to worry"
+        ],
+        correct: "It means no worries for the rest of your days",
+        userChoice: ""
+      }
+    ];
+  
+    function setQuestion() {
+      for (var i = 0; i < questions.length; i++) {
+        $(".questions").append(`<h3>${questions[i].question}</h3>`);
+  
+        for (var j = 0; j < questions[i].choices.length; j++) {
+          $(".questions").append(
+            `<div class="form-check form-check-inline my-2">
+                  <input class="form-check-input" name="${i}" type="radio" value="${
+              questions[i].choices[j]
+            }">
+                  <label class="form-check-label answers" for="${
+                    questions[i].choices[j]
+                  }">${questions[i].choices[j]}</label>
+                  </div>`
+          );
         }
-
+      }
+  
+      $(".questions").on("change", ".form-check-input", function () {
+        console.log(this);
+        var questionIndex = $(this).attr("name");
+        var answer = $(this).val();
+        questions[questionIndex].userChoice = answer;
+        console.log(questions);
+  
+  
+      });
+    
+  
+      
     }
-
-});
-
+  
+  
+  
+  });
+  
