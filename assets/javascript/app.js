@@ -1,12 +1,9 @@
 $(document).ready(function() {
-  var counter = 40;
+  var counter = 120;
   var timer;
-
-  var currentQ = 0;
 
   var correctAnswers = 0;
   var wrongAnswers = 0;
-  var unanswer = 0;
 
   var directionsText = document.getElementById("directions-text");
   $("#directions-text").html(
@@ -15,29 +12,31 @@ $(document).ready(function() {
 
   $("#reset-btn").hide();
   $("#submit-btn").hide();
+  $("#disneyPic2").hide();
 
   $("#start-btn").click(function() {
     $("#directions-text").hide();
     $("#start-btn").hide();
-    console.log("clicked");
+    $("#disneyPic1").hide();
     setQuestion();
     $("#time").html("<h4>" + "Time-left: " + counter + "</h4>");
     $("#submit-btn").show();
 
+
     timer = setInterval(function() {
       counter -= 1;
-      console.log(counter);
-      $("#time").html("<h4>" + "Time-left: " + counter + "</h4>");
+      $("#time").html("<h4>" + "Time Left: " + counter + "</h4>");
 
       if (counter === 0) {
         stop();
         $(".questions").hide();
         $(".answers").hide();
         $("#time").hide();
-        $("#playAgain").text("Thanks for playing Disney Lyric Trivia");
+        $("#playAgain").text("Thanks for playing Disney Lyric Trivia!");
         $("#reset-btn").show();
         $("#submit-btn").hide();
         finishQuiz();
+        $("#disneyPic2").show();
       }
     }, 1000);
 
@@ -60,14 +59,14 @@ $(document).ready(function() {
     },
     {
       question:
-        "What is the next lyric in song, Part of your World, from The Little Mermaid: What would I give if I could live/____",
+        "What is the next line in song, Part of your World, from The Little Mermaid: What would I give if I could live _____",
       choices: ["Out of these waters", "Out of the oceans", "Out of the sea"],
       correct: "Out of these waters",
       userChoice: ""
     },
     {
       question:
-        "What is the next line in A Whole New World from Aladdin? 'I'm in a whole new world with you./ Unbelievable ___'",
+        "What is the next line in A Whole New World from Aladdin: I'm in a whole new world with you./ _______",
       choices: [
         "Unbelievable beauty",
         "Unbelievable sights",
@@ -118,17 +117,14 @@ $(document).ready(function() {
     }
 
     $(".questions").on("change", ".form-check-input", function() {
-      console.log(this);
       var questionIndex = $(this).attr("name");
       var answer = $(this).val();
       questions[questionIndex].userChoice = answer;
-      console.log(questions);
     });
   }
 
   function finishQuiz() {
     for (var i = 0; i < questions.length; i++) {
-      // loop through array to check all answers at once
       if (questions[i].userChoice === questions[i].correct) {
         correctAnswers++;
       } else {
@@ -144,14 +140,15 @@ $(document).ready(function() {
     $(".questions").hide();
     $(".answers").hide();
     $("#time").hide();
-    $("#playAgain").text("Thanks for playing Disney Lyric Trivia");
+    $("#playAgain").text("Thanks for playing Disney Lyric Trivia!");
     $("#reset-btn").show();
     $("#submit-btn").hide();
     finishQuiz();
+    $("#disneyPic2").show();
   });
 
   $("#reset").click(function() {
     location.reload();
   });
-  
+
 });
